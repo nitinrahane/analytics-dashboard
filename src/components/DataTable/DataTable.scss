@@ -1,0 +1,27 @@
+.data-table {
+    margin-top: 2rem;
+    max-height: calc(100vh - 32rem);
+    overflow: auto;
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+  
+      th, td {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        text-align: left;
+      }
+  
+      th {
+        background-color: #f4f4f4;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      table, th, td {
+        font-size: 1.4rem;
+      }
+    }
+  }
+  

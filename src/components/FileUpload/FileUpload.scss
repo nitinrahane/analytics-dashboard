@@ -1,0 +1,25 @@
+.file-upload {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    label {
+      cursor: pointer;
+    }
+  
+    p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+  
+    @media (max-width: 768px) {
+      label {
+        font-size: 14px;
+      }
+  
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+  

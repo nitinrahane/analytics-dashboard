@@ -1,0 +1,22 @@
+.data-display {
+    margin-top: 20px;
+    text-align: left;
+    h2 {
+      color: #444;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+      font-size: 1.4rem;
+      max-height: calc(100vh - 32rem);
+    }
+  
+    @media (max-width: 768px) {
+      pre {
+        font-size: 1.2px;
+      }
+    }
+  }
+  
