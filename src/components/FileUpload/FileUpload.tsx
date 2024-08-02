@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import * as XLSX from 'xlsx';
-import { useDispatch } from 'react-redux';
-import { setData } from '../../store/reducers/dataSlice';
 import Button from '@mui/material/Button';
 import './FileUpload.scss';
 
@@ -9,8 +6,7 @@ interface FileUploadProps {
   onFileSelect: (fileName: string, file: File) => void;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect }) => {
-  const dispatch = useDispatch();
+const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect }) => {  
   const [file, setFile] = useState<File | null>(null);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {

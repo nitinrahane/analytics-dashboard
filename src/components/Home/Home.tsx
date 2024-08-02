@@ -16,6 +16,7 @@ import WordCloud from '../WordCloud/WordCloud';
 import DataDisplay from '../DataDisplay/DataDisplay';
 import SentimateDistrubution from '../SentimateDistrubution/SentimateDistrubution';
 import RechartsRadarChart from '../RechartsRadarChart/RechartsRadarChart';
+import EmotionChartChartjs from '../ChartjsComponents/EmotionChart/EmotionCharts';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,8 @@ const Home: React.FC = () => {
         return <RechartsRadarChart />;
       case 'emotionChart':
         return <EmotionChart />;
+      case 'emotionChartChartjs':
+        return <EmotionChartChartjs />;
       case 'entityWordCloud':
         return <WordCloud type="entity" />;
       case 'themeWordCloud':
@@ -64,7 +67,7 @@ const Home: React.FC = () => {
       case 'table':
         return <DataTable />;
       case 'raw':
-        return <DataDisplay />; // Display raw JSON data
+        return <DataDisplay />;
       default:
         return <Typography>Select a view to display content.</Typography>;
     }
@@ -82,14 +85,15 @@ const Home: React.FC = () => {
         )}
       </Box>
       <Box className="nav-buttons" display="flex" gap={2} mb={4}>
-        <Button variant="contained" onClick={() => setView('sentimentChart')}>Sentiment Chart</Button>
-        <Button variant="contained" onClick={() => setView('rechartsRadarChart')}>Recharts Radar Chart</Button>
-        <Button variant="contained" onClick={() => setView('sentimateDistrubution')}>Sentimate Distrubution</Button>
+        {/* <Button variant="contained" onClick={() => setView('sentimentChart')}>Sentiment Chart</Button> */}
+        <Button variant="contained" onClick={() => setView('rechartsRadarChart')}>Sentimate Distrubution</Button>
+        {/* <Button variant="contained" onClick={() => setView('sentimateDistrubution')}>Sentimate Distrubution (Chartjs)</Button> */}
         <Button variant="contained" onClick={() => setView('emotionChart')}>Emotion Chart</Button>
+        {/* <Button variant="contained" onClick={() => setView('emotionChartChartjs')}>Emotion Chartjs</Button> */}
         <Button variant="contained" onClick={() => setView('entityWordCloud')}>Entity Word Cloud</Button>
         <Button variant="contained" onClick={() => setView('themeWordCloud')}>Theme Word Cloud</Button>
         <Button variant="contained" onClick={() => setView('table')}>Table</Button>
-        <Button variant="contained" onClick={() => setView('raw')}>Raw Data</Button>
+        {/* <Button variant="contained" onClick={() => setView('raw')}>Raw Data</Button> */}
       </Box>
       <Box className="content" display="flex" justifyContent="center" alignItems="center" flexGrow={1} textAlign="center">
         {renderContent()}

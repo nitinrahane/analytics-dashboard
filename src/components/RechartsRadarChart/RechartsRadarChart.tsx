@@ -36,12 +36,10 @@ const RechartsRadarChart: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ width: '100%', height: '100%' }}>
+    <Box sx={{ height: '100%' }}>
       <Typography variant="h6">Sentiment Distribution</Typography>
-      <Box sx={{ width: '100%', height: '400px' }}>
+      <Box sx={{  height: '400px' }}>
         <RadarChart
-          cx="50%"
-          cy="50%"
           outerRadius="80%"
           width={400}
           height={400}
