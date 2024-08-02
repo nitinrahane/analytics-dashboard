@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useAppSelector } from '../../store/hooks';
-import { Button, Menu, MenuItem, IconButton } from '@mui/material';
+import { Button, Menu, MenuItem } from '@mui/material';
 import ViewColumnIcon from '@mui/icons-material/ViewColumn';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import GetAppIcon from '@mui/icons-material/GetApp';
-import { saveAs } from 'file-saver';
-import * as XLSX from 'xlsx';
 import './DataTable.scss';
 import { ResponseData } from '../../store/reducers/dataSlice';
+import { downloadFile } from '../../services/apiService';
 
 const DataTable: React.FC = () => {
     const data = useAppSelector((state) => state.data.data);
@@ -39,12 +38,12 @@ const DataTable: React.FC = () => {
         setDensity((prev) => (prev === 'normal' ? 'compact' : prev === 'compact' ? 'comfortable' : 'normal'));
     };
 
-    const handleExport = () => {
-        const ws = XLSX.utils.json_to_sheet(data);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Responses');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'responses.xlsx');
+    const handleExport = async () => {
+        try {
+            await downloadFile();
+        } catch (error) {
+            console.error('Error downloading file:', error);
+        }
     };
 
     return (
@@ -77,7 +76,7 @@ const DataTable: React.FC = () => {
                     onClick={handleDensityChange}
                 >
                     Density
-                </Button>
+                </Button>                
                 <Button
                     variant="outlined"
                     startIcon={<GetAppIcon />}

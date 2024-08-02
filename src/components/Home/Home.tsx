@@ -1,73 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import SaveIcon from '@mui/icons-material/Save';
-import * as XLSX from 'xlsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { ResponseData, setData } from '../../store/reducers/dataSlice';
-import FileUpload from '../FileUpload/FileUpload';
-import SentimentChart from '../SentimentChart/SentimentChart';
+import { useDispatch } from 'react-redux';
+import { setData } from '../../store/reducers/dataSlice';
 import EmotionChart from '../EmotionChart/EmotionChart';
 import DataTable from '../DataTable/DataTable';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import './Home.scss';
 import WordCloud from '../WordCloud/WordCloud';
-import DataDisplay from '../DataDisplay/DataDisplay';
-import SentimateDistrubution from '../SentimateDistrubution/SentimateDistrubution';
 import RechartsRadarChart from '../RechartsRadarChart/RechartsRadarChart';
-import EmotionChartChartjs from '../ChartjsComponents/EmotionChart/EmotionCharts';
+import { fetchData } from '../../services/apiService';
+import './Home.scss';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  const data = useSelector((state: any) => state.data.data);
-  const [fileName, setFileName] = useState<string | null>(null);
-  const [file, setFile] = useState<File | null>(null);
-  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
-  const [view, setView] = useState<string>(''); // State to track the current view
+  const dispatch = useDispatch(); 
+  const [loading, setLoading] = useState(false);
+  const [view, setView] = useState('table');
 
-  const handleFileSelect = (name: string, selectedFile: File) => {
-    setFileName(name);
-    setFile(selectedFile);
-  };
-
-  const handleSave = () => {
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const data = new Uint8Array(e.target?.result as ArrayBuffer);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
-        const json: ResponseData[] = XLSX.utils.sheet_to_json(worksheet);
-        dispatch(setData(json));
-        setDataLoaded(true);
-      };
-      reader.readAsArrayBuffer(file);
-    }
-  };
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchData();    
+        dispatch(setData(data));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, [dispatch]);
 
   const renderContent = () => {
-    if (!dataLoaded) return <Typography>Please upload and save a file to display content.</Typography>;
+    if (loading) return <Typography>Loading...</Typography>;
     switch (view) {
-      case 'sentimentChart':
-        return <SentimentChart />;
-      case 'sentimateDistrubution':
-        return <SentimateDistrubution />;
       case 'rechartsRadarChart':
         return <RechartsRadarChart />;
       case 'emotionChart':
         return <EmotionChart />;
-      case 'emotionChartChartjs':
-        return <EmotionChartChartjs />;
       case 'entityWordCloud':
         return <WordCloud type="entity" />;
       case 'themeWordCloud':
         return <WordCloud type="theme" />;
       case 'table':
         return <DataTable />;
-      case 'raw':
-        return <DataDisplay />;
       default:
         return <Typography>Select a view to display content.</Typography>;
     }
@@ -76,24 +53,14 @@ const Home: React.FC = () => {
   return (
     <Container className="home" maxWidth="xl">
       <Box className="header" display="flex" alignItems="center" gap={2} mb={2}>
-        <Typography variant="h4">Analytics Dashboard</Typography>
-        <FileUpload onFileSelect={handleFileSelect} />
-        {fileName && (
-          <Button variant="contained" startIcon={<SaveIcon />} onClick={handleSave}>
-            Save
-          </Button>
-        )}
+        <Typography variant="h4">Analytics Dashboard</Typography>       
       </Box>
-      <Box className="nav-buttons" display="flex" gap={2} mb={4}>
-        {/* <Button variant="contained" onClick={() => setView('sentimentChart')}>Sentiment Chart</Button> */}
-        <Button variant="contained" onClick={() => setView('rechartsRadarChart')}>Sentimate Distrubution</Button>
-        {/* <Button variant="contained" onClick={() => setView('sentimateDistrubution')}>Sentimate Distrubution (Chartjs)</Button> */}
-        <Button variant="contained" onClick={() => setView('emotionChart')}>Emotion Chart</Button>
-        {/* <Button variant="contained" onClick={() => setView('emotionChartChartjs')}>Emotion Chartjs</Button> */}
+      <Box className="nav-buttons" display="flex" gap={2} mb={4}>        
+        <Button variant="contained" onClick={() => setView('rechartsRadarChart')}>Sentimate Distrubution</Button>        
+        <Button variant="contained" onClick={() => setView('emotionChart')}>Emotion Chart</Button>        
         <Button variant="contained" onClick={() => setView('entityWordCloud')}>Entity Word Cloud</Button>
         <Button variant="contained" onClick={() => setView('themeWordCloud')}>Theme Word Cloud</Button>
         <Button variant="contained" onClick={() => setView('table')}>Table</Button>
-        {/* <Button variant="contained" onClick={() => setView('raw')}>Raw Data</Button> */}
       </Box>
       <Box className="content" display="flex" justifyContent="center" alignItems="center" flexGrow={1} textAlign="center">
         {renderContent()}
