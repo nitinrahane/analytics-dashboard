@@ -1,13 +1,4 @@
 {
-  // "files": [],
-  // "references": [
-  //   {
-  //     "path": "./tsconfig.app.json"
-  //   },
-  //   {
-  //     "path": "./tsconfig.node.json"
-  //   }
-  // ],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -19,8 +10,18 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./src",
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@styles/*": ["src/styles/*"],
+      "@store/*": ["src/store/*"],
+      "@services/*": ["src/services/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@constants/*": ["src/constants/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@config/*": ["src/config/*"],
+    }
   },
-  "include": ["src", "src/types"]
+  "include": ["src", "src/interfaces"]
 }

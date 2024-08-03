@@ -1,11 +1,12 @@
 .data-table {
-    margin-top: 2rem;
     overflow: hidden;
+    width: 100%;
 
     .table-controls {
         display: flex;
         gap: 1rem;
-        margin-bottom: 1rem;      
+        margin-bottom: 1rem;
+        width: 100%;
 
         .table-button {
             font-size: 0.8rem;
@@ -13,7 +14,7 @@
     }
 
     .table-container {
-        max-height: calc(100vh - 15rem);
+        max-height: calc(100vh - 18rem);
         overflow: auto;
         table {
             width: 100%;
@@ -30,11 +31,11 @@
                 background-color: #f4f4f4;
             }
 
-            .even-row {
+            tbody tr:nth-child(even) {
                 background-color: #f9f9f9;
             }
 
-            .odd-row {
+            tbody tr:nth-child(odd) {
                 background-color: #ffffff;
             }
         }
@@ -50,7 +51,6 @@
         }
 
         @media (max-width: 768px) {
-
             table,
             th,
             td {
@@ -58,5 +58,4 @@
             }
         }
     }
-
 }

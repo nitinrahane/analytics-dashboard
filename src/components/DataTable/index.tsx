@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
-import { useAppSelector } from '../../store/hooks';
-import { Button, Menu, MenuItem } from '@mui/material';
-import ViewColumnIcon from '@mui/icons-material/ViewColumn';
-import DensityMediumIcon from '@mui/icons-material/DensityMedium';
+import { useAppSelector } from '@store/hooks';
+import { Button } from '@mui/material';
 import GetAppIcon from '@mui/icons-material/GetApp';
+import { downloadFile } from '@services/apiService';
+import { SurveyResponse } from '@interfaces';
+import { Density } from '@constants/enums';
+import ColumnToggle from './ColumnToggle';
+import DensityControl from './DensityControl';
 import './DataTable.scss';
-import { ResponseData } from '../../store/reducers/dataSlice';
-import { downloadFile } from '../../services/apiService';
 
 const DataTable: React.FC = () => {
     const data = useAppSelector((state) => state.data.data);
     const [columnsVisible, setColumnsVisible] = useState<{ [key: string]: boolean }>({});
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [density, setDensity] = useState<'compact' | 'normal' | 'comfortable'>('normal');
+    const [density, setDensity] = useState<Density>(Density.Normal);
 
     if (data.length === 0) {
         return <div>No data available. Please upload a file.</div>;
     }
 
-    const columns = Object.keys(data[0]) as Array<keyof ResponseData>;
+    const columns = Object.keys(data[0]) as Array<keyof SurveyResponse>;
 
     const handleColumnsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -28,14 +29,18 @@ const DataTable: React.FC = () => {
         setAnchorEl(null);
     };
 
-    const handleToggleColumn = (column: keyof ResponseData) => {
+    const handleToggleColumn = (column: keyof SurveyResponse) => {
         const existingState = { ...columnsVisible };
         existingState[column] = column in existingState ? !existingState[column] : false;
         setColumnsVisible(existingState);
     };
 
     const handleDensityChange = () => {
-        setDensity((prev) => (prev === 'normal' ? 'compact' : prev === 'compact' ? 'comfortable' : 'normal'));
+        setDensity((prev) =>
+            prev === Density.Normal ? Density.Compact :
+                prev === Density.Compact ? Density.Comfortable :
+                    Density.Normal
+        );
     };
 
     const handleExport = async () => {
@@ -49,34 +54,15 @@ const DataTable: React.FC = () => {
     return (
         <div className="data-table">
             <div className="table-controls">
-                <Button
-                    variant="outlined"
-                    startIcon={<ViewColumnIcon />}
-                    className="table-button"
+                <ColumnToggle
+                    columns={columns}
+                    columnsVisible={columnsVisible}
+                    anchorEl={anchorEl}
                     onClick={handleColumnsClick}
-                >
-                    Columns
-                </Button>
-                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleColumnsClose}>
-                    {columns.map((column) => (
-                        <MenuItem key={column} onClick={() => handleToggleColumn(column)}>
-                            <input
-                                type="checkbox"
-                                checked={columnsVisible[column] !== false}
-                                onChange={() => handleToggleColumn(column)}
-                            />
-                            {column}
-                        </MenuItem>
-                    ))}
-                </Menu>
-                <Button
-                    variant="outlined"
-                    startIcon={<DensityMediumIcon />}
-                    className="table-button"
-                    onClick={handleDensityChange}
-                >
-                    Density
-                </Button>                
+                    onClose={handleColumnsClose}
+                    onToggleColumn={handleToggleColumn}
+                />
+                <DensityControl density={density} onDensityChange={handleDensityChange} />
                 <Button
                     variant="outlined"
                     startIcon={<GetAppIcon />}
@@ -98,7 +84,7 @@ const DataTable: React.FC = () => {
                     </thead>
                     <tbody>
                         {data.map((row, index) => (
-                            <tr key={index} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
+                            <tr key={index}>
                                 {columns.map(
                                     (column) =>
                                         columnsVisible[column] !== false && <td key={column}>{row[column]}</td>
@@ -108,7 +94,6 @@ const DataTable: React.FC = () => {
                     </tbody>
                 </table>
             </div>
-
         </div>
     );
 };

@@ -1,9 +1,45 @@
-  
-  body {
+@import './_variables.scss';
+
+// Global styles
+body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  #root{
+    padding: 0;
+    font-family: $font-family;
+    color: $text-color;
+    background-color: $background-color;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-weight: 500;
+}
+
+button {
+    font-family: $font-family;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    padding: $spacing-unit * 2;
+}
+
+.header,
+.footer {
+    background-color: $primary-color;
+    color: #fff;
+    padding: $spacing-unit * 2;
+}
+
+
+#root {
     margin: auto;
-  }
+}

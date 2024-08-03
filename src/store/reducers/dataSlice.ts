@@ -1,25 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { SurveyDataState, SurveyResponse } from '../../interfaces';
 
-export interface ResponseData {
-  PhrasedQuestion: string;
-  Response: string;
-  Sentiment: 'Positive' | 'Neutral' | 'Negative';
-  Score: number;
-  Polarity: number;
-  Emotion: 'Happiness' | 'Sadness' | 'Anger' | 'Others';
-  Entities: string;
-  Themes: string;
-  ActionableInsight: string;
-  SemanticAnalysis: string;
-  PositiveAspects: string;
-  NegativeAspects: string;
-}
-
-export interface DataState {
-  data: ResponseData[];
-}
-
-const initialState: DataState = {
+const initialState: SurveyDataState = {
   data: [],
 };
 
@@ -27,7 +9,7 @@ const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    setData(state, action: PayloadAction<ResponseData[]>) {
+    setData(state, action: PayloadAction<SurveyResponse[]>) {
       state.data = action.payload;
     },
   },

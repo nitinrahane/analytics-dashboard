@@ -3,12 +3,16 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#556cd6',
+      main: '#1976d2',
     },
     secondary: {
-      main: '#19857b',
+      main: '#dc004e',
     },
   },
+  typography: {
+    fontFamily: 'Roboto, Arial, sans-serif',
+  },
+  spacing: 8,
 });
 
 export default theme;
