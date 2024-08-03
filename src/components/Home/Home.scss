@@ -3,6 +3,7 @@
 .home {
   display: flex;
   flex-direction: column;
+  width: calc(100vw - 2rem);
   height: 100vh;
   padding: 20px;
 
@@ -26,7 +27,6 @@
     flex-grow: 1;
     text-align: center;
     flex-direction: column;
-    width: calc(100vw - 18rem);
 
     .content-title {
       margin-bottom: 20px;

@@ -54,7 +54,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <Container className="home" maxWidth="xl">
+    <Box className="home">
       <Box className="header">
         <Typography variant="h4">Analytics Dashboard</Typography>       
       </Box>
@@ -69,7 +69,7 @@ const Home: React.FC = () => {
         <Typography variant="h5" className="content-title">{COMPONENT_TITLES[view]}</Typography>
         {renderContent()}
       </Box>
-    </Container>
+    </Box>
   );
 };
 

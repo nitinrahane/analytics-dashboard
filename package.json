@@ -44,5 +44,9 @@
     "typescript": "^5.2.2",
     "vite": "^5.3.4",
     "vite-tsconfig-paths": "^4.3.2"
-  }
+  },
+  "keywords": ["analytics", "dashboard", "frontend", "react", "typescript"],
+  "author": "Nitin Rahane <nitin.rahane11@gmail.com>",
+  "license": "ISC",
+  "description": "Frontend for the Analytics Dashboard project"
 }
