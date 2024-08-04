@@ -4,14 +4,20 @@ Welcome to the Analytics Dashboard project! This is a web application designed t
 
 ## Table of Contents
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Available Scripts](#available-scripts)
-- [Environment Variables](#environment-variables)
-- [Contributing](#contributing)
-- [License](#license)
+- [Analytics Dashboard](#analytics-dashboard)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Tech Stack](#tech-stack)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Running and Building](#running-and-building)
+    - [Running the Development Server](#running-the-development-server)
+  - [Project Structure](#project-structure)
+  - [Available Scripts](#available-scripts)
+  - [Environment Variables](#environment-variables)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Features
 
@@ -46,14 +52,11 @@ Ensure you have the following installed:
 ### Installation
 
 1. **Clone the repository:**
-
     ```bash
     git clone https://github.com/nitinrahane/analytics-dashboard.git
     cd analytics-dashboard
     ```
-
 2. **Install dependencies:**
-
     ```bash
     npm install
     # or
@@ -89,6 +92,7 @@ npm run build
 # or
 yarn build
 ```
+
 The optimized and minified output will be in the dist directory.
 
 Previewing the Production Build
@@ -100,10 +104,6 @@ npm run preview
 yarn preview
 ```
 
-
-### Section : Project Structure
-
-```markdown
 ## Project Structure
 
 ```plaintext
@@ -133,10 +133,7 @@ analytics-dashboard/
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
-
-### Available Scripts
-
-
+```
 ## Available Scripts
 
 - **`npm start` or `yarn start`:** Start the Vite development server.
@@ -148,15 +145,9 @@ analytics-dashboard/
 ## Environment Variables
 
 The project uses environment variables to configure the backend API base URL. Create a `.env` file in the root directory and add the following:
-
-```env
+```
 VITE_API_BASE_URL=http://localhost:4000
 ```
-
-
-### Contributing
-
-```markdown
 ## Contributing
 
 Contributions are welcome! Please follow these steps to contribute:
@@ -166,8 +157,6 @@ Contributions are welcome! Please follow these steps to contribute:
 3. Make your changes and commit them with descriptive messages.
 4. Push your changes to your fork.
 5. Create a pull request to the main repository.
-```
 
 ## License
-
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
