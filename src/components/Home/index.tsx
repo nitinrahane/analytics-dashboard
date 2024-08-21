@@ -12,6 +12,7 @@ import { fetchData } from '@services/apiService';
 import { View } from '@constants/enums';
 import { COMPONENT_TITLES } from '@constants/titles';
 import './Home.scss';
+import ResponsiveImages from '@components/ResponsiveImages';
 
 
 const Home: React.FC = () => {
@@ -45,8 +46,10 @@ const Home: React.FC = () => {
         return <WordCloud type="entity" />;
       case View.ThemeWordCloud:
         return <WordCloud type="theme" />;
-      case View.Table:
-        return <DataTable />;
+      case View.Image:
+        return <ResponsiveImages />;
+        case View.Table:
+          return <DataTable />;
       default:
         return <Typography>Select a view to display content.</Typography>;
     }
@@ -63,6 +66,7 @@ const Home: React.FC = () => {
         <Button variant="contained" onClick={() => setView(View.EntityWordCloud)}>Entity Word Cloud</Button>
         <Button variant="contained" onClick={() => setView(View.ThemeWordCloud)}>Theme Word Cloud</Button>
         <Button variant="contained" onClick={() => setView(View.Table)}>Table</Button>
+        {/* <Button variant="contained" onClick={() => setView(View.Image)}>Image Container</Button> */}
       </Box>
       <Box className="content">
         <Typography variant="h5" className="content-title">{COMPONENT_TITLES[view]}</Typography>

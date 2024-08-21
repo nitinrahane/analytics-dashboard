@@ -3,7 +3,8 @@ export enum View {
     SentimentDistribution = 'sentimentDistribution',
     EmotionChart = 'emotionChart',
     EntityWordCloud = 'entityWordCloud',
-    ThemeWordCloud = 'themeWordCloud'
+    ThemeWordCloud = 'themeWordCloud',
+    Image = 'image',
   }
   
   export enum Density {
